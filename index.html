@@ -4,138 +4,189 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Developer Studios Issue Report</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  /* GLOBAL STYLES */
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+/* GLOBAL STYLES */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #00ffff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  animation: bgAnimation 15s ease infinite;
+  transition: background 0.5s, color 0.5s;
+}
+body.dark-mode {
+  background: linear-gradient(135deg, #000000, #0f0c29, #1b1b2f);
+  color: #ff00ff;
+}
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f5f5f5;
-    color: #222;
-    transition: background-color 0.4s, color 0.4s;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
+@keyframes bgAnimation {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
 
-  body.dark-mode {
-    background-color: #121212;
-    color: #e0e0e0;
-  }
+/* GLASSMORPHIC CONTAINER */
+.container {
+  width: 100%;
+  max-width: 500px;
+  backdrop-filter: blur(25px);
+  background: rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  border-radius: 25px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(0,255,255,0.3), 0 0 80px rgba(0,255,255,0.2) inset;
+  animation: fadeIn 1.2s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
 
-  /* CONTAINER */
-  .container {
-    width: 100%;
-    max-width: 500px;
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    transition: background-color 0.4s, box-shadow 0.4s;
-  }
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
 
-  body.dark-mode .container {
-    background: #1e1e1e;
-    box-shadow: 0 10px 25px rgba(255,255,255,0.05);
-  }
+/* GLITCH TITLE EFFECT */
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  color: #00ffff;
+  position: relative;
+  text-shadow: 0 0 5px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff;
+  animation: glitch 2s infinite;
+  margin-bottom: 30px;
+}
 
-  h1 {
-    text-align: center;
-    font-weight: 700;
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-    color: #007BFF;
-  }
+@keyframes glitch {
+  0%, 100% {text-shadow: 0 0 5px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff;}
+  20% {text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;}
+  40% {text-shadow: -2px 2px #ff00ff, 2px -2px #00ffff;}
+  60% {text-shadow: 2px -2px #ff00ff, -2px 2px #00ffff;}
+  80% {text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff;}
+}
 
-  body.dark-mode h1 {
-    color: #66aaff;
-  }
+body.dark-mode h1 {
+  color: #ff00ff;
+  text-shadow: 0 0 5px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+}
 
-  /* FORM ELEMENTS */
-  input, textarea, button {
-    width: 100%;
-    margin-top: 15px;
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    transition: background-color 0.3s, color 0.3s, border 0.3s;
-  }
+/* FORM ELEMENTS */
+input, textarea {
+  width: 100%;
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid rgba(0,255,255,0.4);
+  background: rgba(0,0,0,0.3);
+  color: #00ffff;
+  font-size: 1rem;
+  box-shadow: 0 0 10px rgba(0,255,255,0.2);
+  transition: all 0.3s ease;
+}
+input:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff inset;
+}
+body.dark-mode input, body.dark-mode textarea {
+  color: #ff00ff;
+  border: 1px solid rgba(255,0,255,0.5);
+}
+body.dark-mode input:focus, body.dark-mode textarea:focus {
+  box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff inset;
+}
 
-  input:focus, textarea:focus {
-    outline: none;
-    border-color: #007BFF;
-  }
+button {
+  background: linear-gradient(90deg, #00ffff, #00aaff);
+  color: #000;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 20px;
+  border-radius: 15px;
+  padding: 15px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff inset;
+  animation: pulse 2s infinite;
+}
+button:hover {
+  background: linear-gradient(90deg, #00ffea, #00d4ff);
+  box-shadow: 0 0 25px #00ffff, 0 0 50px #00ffff inset;
+}
+@keyframes pulse {
+  0%, 100% {box-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff inset;}
+  50% {box-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff inset;}
+}
+body.dark-mode button {
+  background: linear-gradient(90deg, #ff00ff, #aa00ff);
+  color: #fff;
+}
+body.dark-mode button:hover {
+  background: linear-gradient(90deg, #ff33ff, #ff00ff);
+  box-shadow: 0 0 25px #ff00ff, 0 0 50px #ff00ff inset;
+}
 
-  body.dark-mode input,
-  body.dark-mode textarea {
-    background-color: #2b2b2b;
-    color: #e0e0e0;
-    border: 1px solid #444;
-  }
+/* TOGGLE BUTTON */
+.toggle-mode {
+  width: auto;
+  padding: 10px 25px;
+  margin-bottom: 25px;
+  border-radius: 15px;
+  border: 1px solid #00ffff;
+  background: rgba(0,0,0,0.3);
+  color: #00ffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+.toggle-mode:hover {
+  box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+  background: rgba(0,0,0,0.5);
+}
+body.dark-mode .toggle-mode {
+  border-color: #ff00ff;
+  color: #ff00ff;
+}
+body.dark-mode .toggle-mode:hover {
+  box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+  background: rgba(0,0,0,0.5);
+}
 
-  button {
-    cursor: pointer;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    font-weight: 600;
-    margin-top: 20px;
-    transition: background-color 0.3s;
-  }
+/* CONFIRMATION MESSAGE */
+#confirmation {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(0,255,255,0.1);
+  border: 1px solid #00ffff;
+  border-radius: 15px;
+  display: none;
+  font-weight: 600;
+  text-shadow: 0 0 5px #00ffff;
+  animation: blink 1s infinite;
+}
+@keyframes blink {
+  0%, 50%, 100% {opacity: 1;}
+  25%, 75% {opacity: 0.5;}
+}
+body.dark-mode #confirmation {
+  background: rgba(255,0,255,0.1);
+  border: 1px solid #ff00ff;
+  text-shadow: 0 0 5px #ff00ff;
+}
 
-  button:hover {
-    background-color: #0056b3;
-  }
-
-  body.dark-mode button {
-    background-color: #66aaff;
-    color: #121212;
-  }
-
-  body.dark-mode button:hover {
-    background-color: #3399ff;
-  }
-
-  /* TOGGLE BUTTON */
-  .toggle-mode {
-    width: auto;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-  }
-
-  body.dark-mode .toggle-mode {
-    background-color: #e0e0e0;
-    color: #121212;
-  }
-
-  /* CONFIRMATION MESSAGE */
-  #confirmation {
-    margin-top: 15px;
-    padding: 15px;
-    background-color: #d4edda;
-    color: #155724;
-    border-radius: 10px;
-    display: none;
-    text-align: center;
-  }
-
-  body.dark-mode #confirmation {
-    background-color: #2e4e2e;
-    color: #c0f5a0;
-  }
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .container { padding: 30px; }
+  h1 { font-size: 1.5rem; }
+}
 </style>
 </head>
 <body>
@@ -157,19 +208,11 @@
   const toggleButton = document.querySelector('.toggle-mode');
   toggleButton.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
-    if(document.body.classList.contains('dark-mode')) {
-      localStorage.setItem('theme', 'dark');
-    } else {
-      localStorage.setItem('theme', 'light');
-    }
+    localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
   });
+  if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
 
-  // Load saved theme
-  if(localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-  }
-
-  // REPORT FORM SUBMISSION (Formspree)
+  // FORM SUBMISSION (Formspree)
   const form = document.getElementById('reportForm');
   const confirmation = document.getElementById('confirmation');
 
@@ -183,7 +226,6 @@
         body: formData,
         headers: { 'Accept': 'application/json' }
       });
-
       if (response.ok) {
         confirmation.style.display = 'block';
         form.reset();
