@@ -92,9 +92,9 @@ body.dark-mode .toggle-mode { background-color: #222; color: #fff; border: 1px s
 }
 body.dark-mode #successPanel { background-color: #1f1f1f; color: #f5f5f5; }
 
-/* EXIT BUTTON */
-#exitButton {
-  margin-top: 40px;
+/* EXIT & BACK BUTTONS */
+.panel-button {
+  margin-top: 20px;
   padding: 15px 40px;
   font-size: 1rem;
   font-weight: 600;
@@ -108,9 +108,9 @@ body.dark-mode #successPanel { background-color: #1f1f1f; color: #f5f5f5; }
   animation: pulse 2s infinite;
   animation-play-state: paused; /* start paused */
 }
-body.dark-mode #exitButton { background-color: #222; color: #fff; border: 1px solid #fff; }
-#exitButton:hover { background-color: #555; color: #fff; }
-body.dark-mode #exitButton:hover { background-color: #f5f5f5; color: #222; }
+body.dark-mode .panel-button { background-color: #222; color: #fff; border: 1px solid #fff; }
+.panel-button:hover { background-color: #555; color: #fff; }
+body.dark-mode .panel-button:hover { background-color: #f5f5f5; color: #222; }
 
 /* PULSING ANIMATION */
 @keyframes pulse {
@@ -170,7 +170,8 @@ body.dark-mode .container::-webkit-scrollbar-thumb { background-color: #aaa; }
 <!-- SUCCESS PANEL -->
 <div id="successPanel">
   Submission Successful
-  <button id="exitButton">Exit</button>
+  <button id="exitButton" class="panel-button">Exit</button>
+  <button id="backButton" class="panel-button">Back</button>
 </div>
 
 <script>
@@ -182,10 +183,11 @@ body.dark-mode .container::-webkit-scrollbar-thumb { background-color: #aaa; }
   });
   if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
 
-  // FORM SUBMISSION WITH PANEL SLIDE & EXIT BUTTON
+  // FORM SUBMISSION WITH PANEL SLIDE & BUTTONS
   const form = document.getElementById('reportForm');
   const successPanel = document.getElementById('successPanel');
   const exitButton = document.getElementById('exitButton');
+  const backButton = document.getElementById('backButton');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -208,10 +210,12 @@ body.dark-mode .container::-webkit-scrollbar-thumb { background-color: #aaa; }
           // Slide success panel from bottom
           successPanel.style.top = "0";
 
-          // Fade in Exit button with pulsing
+          // Fade in Exit and Back buttons with pulsing
           setTimeout(() => { 
             exitButton.style.opacity = 1; 
-            exitButton.style.animationPlayState = "running"; // start pulse
+            backButton.style.opacity = 1;
+            exitButton.style.animationPlayState = "running"; 
+            backButton.style.animationPlayState = "running";
           }, 800);
         }, 500);
       } else {
@@ -223,9 +227,12 @@ body.dark-mode .container::-webkit-scrollbar-thumb { background-color: #aaa; }
     }
   });
 
-  // EXIT BUTTON CLICK
+  // BUTTON CLICKS
   exitButton.addEventListener('click', () => {
     window.location.href = "https://google.com";
+  });
+  backButton.addEventListener('click', () => {
+    window.location.href = "https://vanillamilkshake162.github.io/Issues/";
   });
 </script>
 
