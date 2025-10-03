@@ -1,0 +1,115 @@
+<?php
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name    = htmlspecialchars($_POST['name']);
+    $email   = htmlspecialchars($_POST['email']);
+    $message = htmlspecialchars($_POST['message']);
+
+    // Your email
+    $to      = "developerstudios700@gmail.com";
+    $subject = "New Issue Report from " . $name;
+    $body    = "You have received a new issue report:\n\n";
+    $body   .= "Name: $name\n";
+    $body   .= "Email: $email\n\n";
+    $body   .= "Message:\n$message\n";
+
+    $headers = "From: noreply@yourdomain.com\r\n";
+    $headers .= "Reply-To: $email\r\n";
+
+    if (mail($to, $subject, $body, $headers)) {
+        // Confirmation email to user
+        $confirm_subject = "Your issue report was received ✅";
+        $confirm_body = "Hello $name,\n\n";
+        $confirm_body .= "Thank you for reporting the issue. We’ve received your message and will look into it as soon as possible.\n\n";
+        $confirm_body .= "- Developer Studios";
+        $confirm_headers = "From: noreply@yourdomain.com\r\n";
+
+        mail($email, $confirm_subject, $confirm_body, $confirm_headers);
+
+        $success_message = "✅ Thank you, your issue has been reported! A confirmation email has been sent to $email.";
+    } else {
+        $error_message = "❌ Sorry, something went wrong. Please try again.";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report an Issue</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    form {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      width: 380px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      background: #007BFF;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .message {
+      text-align: center;
+      font-size: 16px;
+      margin-bottom: 15px;
+      color: green;
+    }
+    .error {
+      text-align: center;
+      font-size: 16px;
+      margin-bottom: 15px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <form method="POST">
+    <h2>Report an Issue</h2>
+    
+    <?php if (!empty($success_message)) { ?>
+      <div class="message"><?= $success_message ?></div>
+    <?php } elseif (!empty($error_message)) { ?>
+      <div class="error"><?= $error_message ?></div>
+    <?php } ?>
+    
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Describe the issue..." rows="6" required></textarea>
+    <button type="submit">Submit Report</button>
+  </form>
+</body>
+</html>
